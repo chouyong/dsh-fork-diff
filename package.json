@@ -1,0 +1,94 @@
+{
+  "name": "dsh-fork-diff",
+  "version": "0.1.0",
+  "description": "Read-only side-by-side comparison for related DeepSeek Harness conversation forks.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "conversation",
+    "fork",
+    "diff"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/client.js.map",
+    "lib/types/**/*.d.ts",
+    "cordis.patch.yml",
+    "assets/*.png"
+  ],
+  "scripts": {
+    "build": "npm run build:types && npm run build:bundle",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:bundle": "tsdown",
+    "prepare": "tsdown",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:bundle": "node scripts/check-bundle.mjs",
+    "verify": "npm run typecheck && npm run build && npm test && npm run test:bundle"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chouyong/dsh-fork-diff.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chouyong/dsh-fork-diff/issues"
+  },
+  "homepage": "https://github.com/chouyong/dsh-fork-diff#readme",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.1",
+    "@deepseek-ai/dsh-client-connection": ">=0.0.1-rc.1",
+    "@deepseek-ai/dsh-client-runtime": ">=0.0.1-rc.1",
+    "@deepseek-ai/dsh-client-ui-primitives": ">=0.0.1-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": ">=0.0.1-rc.1",
+    "react": "^18.2.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.1",
+    "@deepseek-ai/dsh-brand": "^0.0.1-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": "0.0.1-rc.1",
+    "@types/node": "^24.13.3",
+    "@types/react": "~18.3.1",
+    "@types/react-dom": "~18.3.1",
+    "@vitest/coverage-v8": "^4.1.8",
+    "jsdom": "^29.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsdown": "^0.22.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
+  }
+}
