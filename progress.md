@@ -72,4 +72,4 @@
 - 以 8 个独立、有实际内容的提交补齐公开发布证据、CI、贡献指南、安全策略、变更日志、架构、安装排障和发布包契约；本地提交总数达到 10，完整 `npm run verify` 新增 package contract 后仍通过。
 - 首次推送因 HTTPS OAuth 缺少 `workflow` scope 被 GitHub 原子拒绝，远端仍为 `9a16a07`。`gh auth status` 只读确认 scope 为 `gist/read:org/repo`；`ssh -T git@github.com` 返回已认证为 `chouyong` 的标准欢迎信息，因此后续使用一次性 SSH URL 推送，不刷新 OAuth scope、不改写 origin。
 - 一次性 SSH URL 非强制快进推送成功；GitHub API 确认公开仓库 `main` 为 `13d009f57bdac4829fa54d2e7555da615de86295`、提交数 11。新增 GitHub Actions CI run `31940630666` 在同一 SHA 上成功。
-- 第一个 awesome 列表的提交数门槛已真实满足；仓库年龄仍需等到北京时间 `2026-08-17 17:23:36`，在此之前保持 PR 失败关闭。
+- 第一个 awesome 列表的提交数门槛已真实满足；门禁源码按 `(Date.now() - repo.created_at) / 86400000` 直接判断年龄，且只 grandfather 门禁生效前已创建的 PR。当前仓库必须等到北京时间 `2026-08-17 17:23:36`，在此之前保持 PR 失败关闭；最新 CI run `31940713837` 也已成功。
