@@ -69,3 +69,5 @@
 - 发布收口时按 PID 与命令行核对 `9632` 仍为 `llm-mock-server --port 3901` 后执行精确停止；同一包装器的立即检查短暂仍见 PID，独立 CIM 查询随后确认进程已退出，归类为退出检查竞态。
 - 用户给出的历史参照 PR `awesome-dsh-plugin#886` 与 `awesome-deepseek-harness#253` 均为已合并的 `dsh-fork-graph` 条目；前者创建于新资格门禁上线前，只作为四文件提交结构参照，不能外推为当前仓库的资格豁免。
 - `D:\knowledgeBase\dsh-fork-diff` 尚未初始化 CodeGraph；本轮仅新增发布文档、CI 与独立包契约检查，不改已有源码结构，已向用户询问是否随后运行 `codegraph init -i`。
+- 以 8 个独立、有实际内容的提交补齐公开发布证据、CI、贡献指南、安全策略、变更日志、架构、安装排障和发布包契约；本地提交总数达到 10，完整 `npm run verify` 新增 package contract 后仍通过。
+- 首次推送因 HTTPS OAuth 缺少 `workflow` scope 被 GitHub 原子拒绝，远端仍为 `9a16a07`。`gh auth status` 只读确认 scope 为 `gist/read:org/repo`；`ssh -T git@github.com` 返回已认证为 `chouyong` 的标准欢迎信息，因此后续使用一次性 SSH URL 推送，不刷新 OAuth scope、不改写 origin。
