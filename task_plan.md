@@ -41,8 +41,8 @@
 
 - [x] 完成 README、release evidence/report 和最终哈希。
 - [x] 执行 Claude 只读独立审核并解决所有 HOLD。
-- [ ] 确认仓库 visibility 后推送已验证 commit，核对远端 SHA。
-- [ ] 创建与验证 Release。
+- [x] 确认仓库 visibility 后推送已验证 commit，核对远端 SHA。
+- [x] 创建与验证 Release。
 - [ ] 按各自贡献规则提交两个聚焦 awesome PR，核对状态与 checks。
 - [ ] 给出 `FIRST_PASS` / `PASS_AFTER_CHANGES` / `FAIL` 最终结论。
 

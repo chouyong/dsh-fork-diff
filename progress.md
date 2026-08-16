@@ -59,3 +59,13 @@
 - R2B dry run 通过；正式只读审核在 311 秒内生成格式合法的 `GO` 回执 `docs/CLAUDE_TO_CODEX_REVIEW_RECEIPT_R2B.md`，确认 R1B 的 Release 表述、机器回执绑定、父分支正文断言、占位清理和 conversation peer 五项阻塞均已关闭。
 - R2B 新发现的非阻塞 N1 为 `docs/release-evidence.md` 仍记录旧 DSH PID `16220`；已更正为最后一次浏览器门禁 PID `19464`，并明确该进程已停止。下一步执行最终独立复验后进入公开仓库、Release 与两个 awesome PR 发布。
 - 发布前最终独立复验通过：`npm run verify` 完成 typecheck、build、7 文件 23/23 测试与 bundle contract；`node --check scripts/verify-real-browser.mjs`、`git diff --check`、51 个文本文件严格 UTF-8 解码和疑似密钥模式扫描均通过。tarball、bundle、浏览器回执及三图 SHA-256 与发布证据一致。
+- 最终提交 `9a16a072eba57b16f0a9040ad8047bacdcf389a1` 已推送到新建公开仓库 `chouyong/dsh-fork-diff`，本地与远端 `main` SHA 一致；`v0.1.0` Release target 同一提交。
+- Release asset 远端元数据与重新下载均确认 239,114 字节、SHA-256 `2E83CFD413E2F706DF589CA3888A73AE3EEDAF0509151D59E0E2408BF0C8C0BF`。首次临时核验包装器因本机 `New-Item` 不支持 `-LiteralPath` 在建目录前失败，改用精确 `-Path` 后通过且临时副本已清理。
+- 新隔离 `fork-diff-release-web` 首次官方 `initProfile` 调用因 Windows 裸 `D:` ESM URL 被 Node 拒绝，未创建目录；使用 `pathToFileURL` 调用同一 DSH 官方导出后成功初始化为 base + web-app。
+- 官方 CLI 从公开 Release URL 直接安装时，pnpm 两轮重试均 `ETIMEDOUT`；独立 curl 直链也超时，profile 保持未安装。GitHub CLI 下载同一公开资产并核对哈希后，官方 CLI 本地 tarball fallback 安装成功；安装 bundle、三图、conversation peer 和 `--dump-config` 均通过。
+- 插件仓库已添加 `dsh-plugin`、`deepseek-harness`、`conversation-diff`、`session` topics。
+- `awesome-deepseek-harness` 聚焦 PR #270 已创建：head `ac88cdb3f10fed5aeca80fe3d3bfb2f5b7255600`，两文件各新增一行，状态 `OPEN`、`MERGEABLE`；仓库 workflows 仅手工触发，无自动 checks，本地同命令 lint 通过。
+- `awesome-dsh-plugin` 在最新 upstream 上准备了单提交 `aa1d1b87797bb29dc19d8b1c9512ea0c4ad12386`，官方生成检查、lint、站点构建和 diff 检查均通过；但仓库创建时间为 `2026-08-16T09:23:36Z`、真实提交数为 2，未满足创建满 1 天且至少 10 提交的自动门禁，因此未创建必败 PR，也未制造空提交。
+- 发布收口时按 PID 与命令行核对 `9632` 仍为 `llm-mock-server --port 3901` 后执行精确停止；同一包装器的立即检查短暂仍见 PID，独立 CIM 查询随后确认进程已退出，归类为退出检查竞态。
+- 用户给出的历史参照 PR `awesome-dsh-plugin#886` 与 `awesome-deepseek-harness#253` 均为已合并的 `dsh-fork-graph` 条目；前者创建于新资格门禁上线前，只作为四文件提交结构参照，不能外推为当前仓库的资格豁免。
+- `D:\knowledgeBase\dsh-fork-diff` 尚未初始化 CodeGraph；本轮仅新增发布文档、CI 与独立包契约检查，不改已有源码结构，已向用户询问是否随后运行 `codegraph init -i`。
