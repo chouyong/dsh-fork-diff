@@ -41,6 +41,8 @@ dsh plugin --profile web add .\dsh-fork-diff-0.1.0.tgz
 
 DSH `0.1.0-rc.5` 当前从 Git source 安装时会在 prepare 阶段解析到尚未发布的 DSH peer 包，因此不把 Git source 路径描述成可用安装方式。远端 Release 只有在上传后下载并核对与本地验证构件相同的 SHA-256，才视为可用安装源。
 
+网络超时、Git source prepare、入口不显示和历史分页错误的处理方法见 [安装与排障](./docs/installation-troubleshooting.md)。
+
 卸载：
 
 ```powershell
