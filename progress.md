@@ -74,3 +74,5 @@
 - 一次性 SSH URL 非强制快进推送成功；GitHub API 确认公开仓库 `main` 为 `13d009f57bdac4829fa54d2e7555da615de86295`、提交数 11。新增 GitHub Actions CI run `31940630666` 在同一 SHA 上成功。
 - 第一个 awesome 列表的提交数门槛已真实满足；门禁源码按 `(Date.now() - repo.created_at) / 86400000` 直接判断年龄，且只 grandfather 门禁生效前已创建的 PR。当前仓库必须等到北京时间 `2026-08-17 17:23:36`，在此之前保持 PR 失败关闭；最新 CI run `31940713837` 也已成功。
 - CI run `31940782193` 完整通过但报告 Actions v4 的 Node 20 runtime 已弃用；workflow 升级到 `actions/checkout@v5` 与 `actions/setup-node@v5`，保持 job Node 24 和验证命令不变。复验 run `31940836408` 在 `db86fc6` 上成功且没有弃用 annotation。
+- `awesome-dsh-plugin` upstream 从 `9109c218` 前移 45 个提交到 `617810c7`；尚未推送的单提交准备分支无冲突 rebase 后，由官方生成器修正双语 README 排序并 amend 为 `9df7fc211eff5c767412adc6bca6311784f93005`。
+- 更新后的第一列表分支仍仅修改双语 README、插件 YAML 与截图 JSON 四个文件，共 13 行；官方生成检查显示 962 entries、structured YAML/JSON 核对 1 个入口与 3 张截图、awesome-lint 成功（24 条均为上游既有拼写 warning）、站点构建与 `git diff --check` 通过。年龄未到前仍不推送该分支。

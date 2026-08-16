@@ -78,6 +78,8 @@
 | served asset 首次内存哈希包装器调用本机不可用的 `System.Net.Http.HttpClient` / `SHA256.HashData`，非终止错误导致空测量 | 1 | 将测量包装器失败与 HTTP 服务状态分层；启用终止错误并用精确临时文件下载、`Get-FileHash` 核验 48,184 字节构件，随后删除该临时文件 |
 | 首次新增 GitHub Actions workflow 时 `apply_patch` 因 `.github/workflows` 父目录不存在而原子拒绝 | 1 | 只创建精确父目录后重新应用补丁；首次失败没有创建半文件 |
 | 推送新增 CI workflow 时 GitHub 拒绝当前 HTTPS OAuth 凭据，因其只有 `repo` 等 scope、没有 `workflow` scope | 1 | 远端 ref 未前移；不删除 CI、不重复 HTTPS 推送。只读核对本机 SSH 已认证为 `chouyong`，改用一次性 SSH URL 做非强制快进推送，不扩大 OAuth scope、不修改 origin |
+| `awesome-dsh-plugin` 准备分支 rebase 到前移 45 个提交的新 upstream 后，官方 `generate-readme --check` 报双语 README 与数据失同步 | 1 | 用官方生成器重建双语 README，并 amend 到尚未推送的唯一提交；重新生成检查、lint、站点构建和 diff 检查均通过 |
+| 额外截图结构检查器把 `data/screenshots.json` 顶层误设为数组并调用 `.filter()`，触发 `TypeError` | 1 | 先用 `JSON.parse` 枚举真实 schema，确认顶层是仓库 URL 到截图数组的对象；改按 `shots[entry.url]` 验证 3 张截图后通过 |
 
 ### Review state
 
