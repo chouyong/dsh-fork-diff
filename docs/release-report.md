@@ -13,11 +13,11 @@
 - `v0.1.0` Release 已发布；远端资产重新下载后的大小与 SHA-256 和本地验证构件一致。
 - 公开资产已通过 GitHub CLI 下载并由官方 DSH CLI 安装到新的 `fork-diff-release-web`；bundle、三图、peer 声明和配置组合均通过。
 - `awesome-deepseek-harness` PR #270 已创建并核对为 `OPEN`、`MERGEABLE`，仅修改双语列表各一行。
-- 公开仓库当前 `main` 为 `13d009f57bdac4829fa54d2e7555da615de86295`，有 11 个真实提交；GitHub Actions CI run `31940630666` 成功。
+- 公开仓库当前 `main` 为 `7175f307d3fe1c0b11feded6591aad4742c2ae56`，有 16 个真实提交；GitHub Actions CI run `31942167177` 成功。
 
 ## 待完成
 
-- `awesome-dsh-plugin` PR：提交数门槛已满足；待仓库于北京时间 `2026-08-17 17:23:36` 满 1 天后提交。当前准备分支为单提交 `aa1d1b87797bb29dc19d8b1c9512ea0c4ad12386`，未用伪造时间或必败 PR 绕过门禁。
+- `awesome-dsh-plugin` PR：提交数门槛已满足；待仓库于北京时间 `2026-08-17 17:23:36` 满 1 天后提交。当前准备分支为基于 upstream `617810c72c8ee805ff844665decfd707b81b4aa3` 的单提交 `9df7fc211eff5c767412adc6bca6311784f93005`，未用伪造时间或必败 PR 绕过门禁。
 
 ## 已知边界
 
