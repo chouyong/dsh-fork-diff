@@ -91,6 +91,8 @@ npm run verify
 
 `npm run verify` 依次执行类型检查、生产构建、完整测试和 browser bundle contract。浏览器构件使用 DSH `window.__ModuleLoader__`，并从宿主加载 React、Cordis 和 DSH UI 模块，避免打包第二份 React。
 
+贡献代码前请阅读 [贡献指南](./CONTRIBUTING.md)。
+
 ## 兼容性
 
 | 组件 | 已验证版本 |
