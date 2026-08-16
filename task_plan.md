@@ -76,6 +76,7 @@
 | Claude R1A 发现 `greedyMatches` 在近似路径耗尽重复 fingerprint 位置桶后无界循环，既有大历史测试未进入该分支 | 1 | 保留 R1A `HOLD` 回执；为 offset 推进增加 bucket length 边界，并新增 700×700 重复项耗尽回归用例。验证后使用独立 R2A 通知与回执复审，不覆盖 R1A |
 | R1A 修复后对相同 file tarball spec 重复 `plugin add`，pnpm 更新 lockfile integrity 却保留旧安装目录 | 1 | 不把 `Already up to date` 当安装成功；用官方 CLI 对隔离 profile 中精确的 `dsh-fork-diff` 执行 `remove`→`add`，再以安装目录 bundle SHA-256 证明替换完成 |
 | served asset 首次内存哈希包装器调用本机不可用的 `System.Net.Http.HttpClient` / `SHA256.HashData`，非终止错误导致空测量 | 1 | 将测量包装器失败与 HTTP 服务状态分层；启用终止错误并用精确临时文件下载、`Get-FileHash` 核验 48,184 字节构件，随后删除该临时文件 |
+| 首次新增 GitHub Actions workflow 时 `apply_patch` 因 `.github/workflows` 父目录不存在而原子拒绝 | 1 | 只创建精确父目录后重新应用补丁；首次失败没有创建半文件 |
 
 ### Review state
 
