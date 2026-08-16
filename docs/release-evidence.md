@@ -57,8 +57,8 @@
 
 ## Stage 4: Publish
 
-- Claude R2A 与 R2B 均为 `GO`；最终发布提交为 `9a16a072eba57b16f0a9040ad8047bacdcf389a1`。
-- 公开仓库：`https://github.com/chouyong/dsh-fork-diff`，visibility 为 `PUBLIC`，默认分支 `main`；推送后本地与远端 `main` SHA 一致。
+- Claude R2A 与 R2B 均为 `GO`；`v0.1.0` 实现与 Release target 提交为 `9a16a072eba57b16f0a9040ad8047bacdcf389a1`。
+- 公开仓库：`https://github.com/chouyong/dsh-fork-diff`，visibility 为 `PUBLIC`，默认分支 `main`。补充真实发布证据、CI、贡献/安全/变更日志、架构、安装排障和 package contract 后，当前本地与远端 `main` 均为 `13d009f57bdac4829fa54d2e7555da615de86295`，共 11 个非空提交。
 - Release：`https://github.com/chouyong/dsh-fork-diff/releases/tag/v0.1.0`，非草稿、非预发布，target 为 `9a16a072eba57b16f0a9040ad8047bacdcf389a1`。
 - GitHub Release asset 为 `dsh-fork-diff-0.1.0.tgz`，239,114 字节；GitHub digest 与重新下载后的 SHA-256 均为 `2E83CFD413E2F706DF589CA3888A73AE3EEDAF0509151D59E0E2408BF0C8C0BF`。
 - 新隔离 profile `fork-diff-release-web` 由 DSH 官方 `initProfile(..., PROFILE_TEMPLATES.web)` 初始化，初始 bundle 仅为 base + web-app。
@@ -68,4 +68,5 @@
 - 仓库 topics 已设置为 `dsh-plugin`、`deepseek-harness`、`conversation-diff`、`session`。
 - `0xsline/awesome-deepseek-harness` PR：`https://github.com/0xsline/awesome-deepseek-harness/pull/270`；状态 `OPEN`、`MERGEABLE`，head `ac88cdb3f10fed5aeca80fe3d3bfb2f5b7255600`，只修改双语 README 各一行。该仓库 workflow 仅支持手工触发，未报告 PR checks；本地运行同一 `awesome-lint` 通过。
 - `awesome-dsh-plugin` 已在最新 upstream `9109c2181db2c733ee96dcacdc3621fe6ee7991a` 上准备单提交 `aa1d1b87797bb29dc19d8b1c9512ea0c4ad12386`：新增插件 YAML、三图登记并由官方生成器更新双语 README；生成检查、lint、站点构建和 `diff --check` 均通过。
-- `awesome-dsh-plugin` PR 尚未创建：其自动门禁要求插件仓库创建满 1 天且至少 10 个提交；实测仓库创建于 `2026-08-16T09:23:36Z` 且仅 2 个真实提交。不得用空提交或明知必败的 PR 伪造资格。
+- GitHub Actions CI run `31940630666` 在 `13d009f57bdac4829fa54d2e7555da615de86295` 上成功，执行 Node 24、`npm ci --ignore-scripts --legacy-peer-deps` 与完整 `npm run verify`。
+- `awesome-dsh-plugin` PR 尚未创建：至少 10 个提交的门槛已由 11 个真实提交满足；仓库创建于 `2026-08-16T09:23:36Z`，仍需等到 `2026-08-17T09:23:36Z`（北京时间 `2026-08-17 17:23:36`）才满 1 天。不得用伪造时间或明知必败的 PR 绕过年龄门禁。
