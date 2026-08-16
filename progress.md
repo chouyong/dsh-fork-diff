@@ -73,4 +73,4 @@
 - 首次推送因 HTTPS OAuth 缺少 `workflow` scope 被 GitHub 原子拒绝，远端仍为 `9a16a07`。`gh auth status` 只读确认 scope 为 `gist/read:org/repo`；`ssh -T git@github.com` 返回已认证为 `chouyong` 的标准欢迎信息，因此后续使用一次性 SSH URL 推送，不刷新 OAuth scope、不改写 origin。
 - 一次性 SSH URL 非强制快进推送成功；GitHub API 确认公开仓库 `main` 为 `13d009f57bdac4829fa54d2e7555da615de86295`、提交数 11。新增 GitHub Actions CI run `31940630666` 在同一 SHA 上成功。
 - 第一个 awesome 列表的提交数门槛已真实满足；门禁源码按 `(Date.now() - repo.created_at) / 86400000` 直接判断年龄，且只 grandfather 门禁生效前已创建的 PR。当前仓库必须等到北京时间 `2026-08-17 17:23:36`，在此之前保持 PR 失败关闭；最新 CI run `31940713837` 也已成功。
-- CI run `31940782193` 完整通过但报告 Actions v4 的 Node 20 runtime 已弃用；workflow 升级到 `actions/checkout@v5` 与 `actions/setup-node@v5`，保持 job Node 24 和验证命令不变，待远端无告警复验。
+- CI run `31940782193` 完整通过但报告 Actions v4 的 Node 20 runtime 已弃用；workflow 升级到 `actions/checkout@v5` 与 `actions/setup-node@v5`，保持 job Node 24 和验证命令不变。复验 run `31940836408` 在 `db86fc6` 上成功且没有弃用 annotation。
