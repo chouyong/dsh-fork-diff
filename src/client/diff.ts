@@ -122,7 +122,11 @@ function greedyMatches(
     const bucket = positions.get(fingerprint)
     if (bucket === undefined) continue
     let offset = offsets.get(fingerprint) ?? 0
-    while ((bucket[offset] ?? -1) < rightFloor) offset++
+    while (offset < bucket.length && (bucket[offset] ?? 0) < rightFloor) offset++
+    if (offset >= bucket.length) {
+      offsets.set(fingerprint, offset)
+      continue
+    }
     const rightIndex = bucket[offset]
     offsets.set(fingerprint, offset + 1)
     if (rightIndex === undefined) continue

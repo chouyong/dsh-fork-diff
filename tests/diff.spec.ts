@@ -36,4 +36,18 @@ describe('diffUnits', () => {
     const right = Array.from({ length: 700 }, (_, index) => unit(`r${String(index)}`, 'assistant', `right-${String(index)}`))
     expect(diffUnits(left, right).approximate).toBe(true)
   })
+
+  it('finishes the fast path when a repeated fingerprint exhausts its right-side matches', () => {
+    const left = Array.from({ length: 700 }, (_, index) => unit(`l${String(index)}`, 'assistant', 'repeated'))
+    const right = Array.from({ length: 700 }, (_, index) => unit(
+      `r${String(index)}`,
+      'assistant',
+      index === 1 ? 'repeated' : `right-${String(index)}`,
+    ))
+
+    const value = diffUnits(left, right)
+    expect(value.approximate).toBe(true)
+    expect(value.counts.same).toBe(1)
+    expect(value.rows).toHaveLength(701)
+  })
 })

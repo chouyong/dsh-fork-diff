@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-08-16T09:11:25.850Z",
+  "git": {
+    "head": "1bc86a817046edbde93b4bfe6251492e2c3eb8fa",
+    "dirty": true,
+    "statusSha256": "5981E00F60937015355311E39C824DE28F18E1630BAB2459E6469836C0ECA4B2",
+    "trackedDiffSha256": "124E7D52D9EC0DFEFA9D7CA3E83B3E01DA381FC185DDA742B4A1B93F867B5CEC"
+  },
+  "dsh": {
+    "version": "0.1.0-rc.5",
+    "baseUrl": "http://127.0.0.1:3091"
+  },
+  "baseUrl": "http://127.0.0.1:3091",
+  "browser": {
+    "name": "Microsoft Edge",
+    "executablePath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+    "version": "151.0.4129.86",
+    "headless": true
+  },
+  "plugin": {
+    "assetUrl": "http://127.0.0.1:3091/plugins/dsh-fork-diff/client.js?rev=6e23f62a6699",
+    "assetStatus": 200,
+    "bytes": 48184,
+    "servedBundleSha256": "8371F230A2C695A03F34E40D24CAAFD473EB6884D2F65F7685DC170FCA5EA2BA",
+    "localBundlePath": "D:\\knowledgeBase\\dsh-fork-diff\\lib\\client.js",
+    "localBundleSha256": "8371F230A2C695A03F34E40D24CAAFD473EB6884D2F65F7685DC170FCA5EA2BA"
+  },
+  "viewport": {
+    "desktop": {
+      "width": 1440,
+      "height": 1000
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "checks": {
+    "pluginAssetStatus": 200,
+    "styleCount": 1,
+    "candidateCount": 3,
+    "siblingCandidate": "兄弟分支 · PARENT_BASELINE_RESPONSE_SHARED_PLAN_USES_CACHE_AND_TWO_VALIDATION_STEPS. (1)",
+    "parentCandidate": "父分支 · PARENT_BASELINE_RESPONSE_SHARED_PLAN_USES_CACHE_AND_TWO_VALIDATION_STEPS.",
+    "parentBodyInComparedBranch": true,
+    "noForkTriggerHidden": true,
+    "metrics": [
+      "2 用户\n2 回答\n1 工具\n315 ms\n135 tokens",
+      "2 用户\n2 回答\n0 工具\n282 ms\n130 tokens"
+    ],
+    "changedRows": 4,
+    "allRows": 6,
+    "currentHighlights": 1,
+    "nestedToolError": true,
+    "knownRuntimeNoiseAbsent": true,
+    "focusTrap": true,
+    "escapeAndFocusRestore": true,
+    "openSessionNavigation": true,
+    "mobileSingleColumn": true
+  },
+  "screenshots": {
+    "desktop": {
+      "path": "D:\\knowledgeBase\\dsh-fork-diff\\assets\\fork-diff-desktop.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "47F3FB7636FB66E4C5BA1493AF7313AF91A14DDF345BD207B9457C52771A3EB4"
+    },
+    "selector": {
+      "path": "D:\\knowledgeBase\\dsh-fork-diff\\assets\\fork-diff-selector.png",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "60F605212A90B9EF501865685D6A0C686A925A0D0C5A7089553C68CA15559DC4"
+    },
+    "mobile": {
+      "path": "D:\\knowledgeBase\\dsh-fork-diff\\assets\\fork-diff-mobile.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "FC516B7D7E55CCC60AE9369444B4C66EA79B75902F23361487DE590CD0435677"
+    }
+  },
+  "errors": {
+    "console": [],
+    "page": [],
+    "request": []
+  }
+}

@@ -22,6 +22,14 @@ const CORE_EVENT_TYPES = new Set([
   'session/title',
 ])
 
+const KNOWN_NON_COMPARISON_EVENT_TYPES = new Set([
+  'agent/inbox/spliced',
+  'approval/policy',
+  'permission/preset',
+  'sandbox/mode',
+  'session/title-llm-request',
+])
+
 const SURFACE_TYPES = new Set(['user/message', 'assistant/message', 'tool/result'])
 
 export function normalizeHistory(events: readonly SessionEvent[]): NormalizedHistory {
@@ -32,7 +40,11 @@ export function normalizeHistory(events: readonly SessionEvent[]): NormalizedHis
   let currentStep: number | undefined
 
   for (const event of events) {
-    if (!CORE_EVENT_TYPES.has(event.type) && event.ignorable !== true) unsupported.add(event.type)
+    if (
+      !CORE_EVENT_TYPES.has(event.type)
+      && !KNOWN_NON_COMPARISON_EVENT_TYPES.has(event.type)
+      && event.ignorable !== true
+    ) unsupported.add(event.type)
     const data = asRecord(event.data)
     if (event.type === 'turn/start') currentTurn = safeInteger(data?.turn)
     if (event.type === 'step/start') currentStep = safeInteger(data?.step)
@@ -81,6 +93,8 @@ function unitOf(
 ): ComparisonUnit | undefined {
   switch (event.type) {
     case 'user/message': {
+      const source = asRecord(data?.source)
+      if (source?.kind !== 'user') return undefined
       const body = contentText(data?.content)
       if (body === '') return undefined
       return makeUnit(event, 'user', '用户消息', body, currentTurn, currentStep)
@@ -113,7 +127,9 @@ function unitOf(
     case 'tool/result': {
       const message = asRecord(data?.message)
       const body = contentText(message?.content)
-      const isError = message?.isError === true || data?.error !== undefined
+      const isError = message?.isError === true
+        || contentHasToolError(message?.content)
+        || data?.error !== undefined
       return makeUnit(
         event,
         'tool-result',
@@ -175,11 +191,23 @@ export function contentText(content: unknown, options: ContentTextOptions = {}):
     } else if (type === 'tool-call' && options.includeToolCalls === true) {
       const name = safeString(block.name) ?? 'tool'
       parts.push(`${name}(${formatArguments(safeString(block.arguments) ?? '')})`)
+    } else if (type === 'tool-result') {
+      const text = contentText(block.content, options)
+      if (text !== '') parts.push(text)
     } else if (type === 'image' || type === 'image-ref') {
       parts.push('[图片]')
     }
   }
   return parts.join('\n\n')
+}
+
+function contentHasToolError(content: unknown): boolean {
+  if (!Array.isArray(content)) return false
+  return content.some((value) => {
+    const block = asRecord(value)
+    if (block === undefined) return false
+    return block.isError === true || contentHasToolError(block.content)
+  })
 }
 
 export function formatArguments(value: string): string {

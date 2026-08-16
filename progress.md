@@ -27,3 +27,35 @@
 - 已创建完整中文 README，包含痛点、功能、安装/卸载、使用、隐私边界和兼容性；真实截图仍保持待 Stage 3 生成。
 - `npm pack --dry-run` 与正式 `npm pack` 通过；正式 tarball 共 19 个文件、38,044 字节，SHA-256 `FF58024815E6436AF6A876893A498433A69702F1F2C7D6FB8B04510CAD442D82`；browser bundle SHA-256 `4526B8915814A1EAD1492E558098281CF541C385AFD06500553C7C0C03C32F07`。
 - Phase 1 已完成，Phase 2 转为进行中。为避免干扰现有 `web` profile，将创建独立 `fork-diff-web` profile，并用官方 DSH CLI 对本地 Git source commit 执行安装门禁。
+- 创建了独立 `D:\dsh-home\profiles\fork-diff-web`，其模板仅含官方 base + web-app；现有 `web` profile 未修改。将 commit `1bc86a817046edbde93b4bfe6251492e2c3eb8fa` 克隆为临时 bare Git 源。
+- 首次 commit-pinned Git 安装真实失败：`ERR_PNPM_GIT_DEP_PREPARE_NOT_ALLOWED`。pnpm 给出的精确键已加入隔离 profile 的 `allowBuilds`，待按同一 SHA 重试。
+- Git 安装第二次进入 prepare 后失败：pnpm 的 Git package prepare 执行 `npm install`，npm 自动解析 DSH peer 链并对未发布的 `@deepseek-ai/dsh-paths@^0.0.1-rc.1` 返回 404。该结果满足预注册 tarball fallback 条件；不再重复 Git 路径。
+- tarball fallback 安装成功：profile manifest 追加 `dsh-fork-diff` bundle，`--dump-config` 出现 `fork-diff` 行；安装后的 browser bundle SHA-256 与发布构件一致。
+- DSH 在 `127.0.0.1:3091` 真实启动，root HTML 的 boot entries 包含 `dsh-fork-diff`；改用 `domcontentloaded` 后 Edge 探针成功，console/page/request failures 均为 0。
+- 为避免任何真实密钥处理，停止本轮 PID 1948，并在隔离 profile 中配置 DSH 自带的无凭据本地 mock LLM route（`fork-diff-gate/gate-model`，端口 3901）；现有 home 凭据文件未读取或修改。
+- 真实父会话与两个同父兄弟分支已经通过公开 `session.list` / `session.history` 形成；首次插件 UI 验证暴露三项归一化缺陷：非用户来源的 `user/message` 被计数、嵌套 `tool-result` 正文未展开、已知控制事件被误报为 unsupported。
+- 已修复上述三项并新增回归用例。定向 Vitest 首次执行 5 个用例时新增 2 项因夹具遗漏 `surfaceOp: append` 失败；实现未回退，测试已补齐真实 DSH surface 事件形态，待重跑。
+- 定向归一化测试重跑 5/5 通过；完整 `npm run verify` 通过：typecheck、build、7 个文件 22/22 测试和 bundle contract 全绿。
+- 修复后 tarball SHA-256 为 `EBE952234F1B6ABAA02CB655A4FE758BB75CAA4358488A000BB87D107E106D6B`，browser bundle SHA-256 为 `AA3A6E696FFCD515BC57538721C022B88225E8949225203A387019F4BDEFAD60`；隔离 profile 重新安装后 bundle 哈希一致，`--dump-config` 包含 `fork-diff`。
+- 新 DSH PID 22692 在 3091 启动，root 与插件 asset 均 HTTP 200。首次修复后 Edge 门禁因新上下文默认处于无 fork 会话而未出现触发器，保持产品 no-fork 规则不变，下一步从公开侧边栏选择已有真实分支。
+- 浏览器脚本改为通过公开“展开其余会话”与会话标题行进入真实 fork；修复后完整 Edge 门禁通过，机器回执写入 `docs/browser-gate-receipt.json`，三张截图写入 `assets/`。
+- 已人工检查 `fork-diff-desktop.png` 与 `fork-diff-selector.png` 原图：内容真实、可读且无重叠；移动端截图待独立检查。
+- 已人工检查 `fork-diff-mobile.png` 原图：390×844 单栏布局、长标题、selector 和差异正文均无横向溢出或重叠。Phase 2 与 Phase 3 收口，Phase 4 转为进行中。
+- Claude R1 dry run 通过，正式广范围只读审核超过 300 秒且没有生成回执；该轮按技能规则记录为 `NO_RESULT_TIMEOUT`，不是 `GO/HOLD`。随后复核其 Claude PID 10872 已退出且无可归属子进程，未触碰其他 Claude 终端。
+- 不原样重试 R1；Phase 4 审核拆为顺序单链：R1A 只审源码归一化、纯只读边界与定向测试，R1B 只审浏览器验收脚本、README、构件和发布证据。
+- Claude R1A 在 280 秒内生成格式合法的 `HOLD` 回执 `docs/CLAUDE_TO_CODEX_REVIEW_RECEIPT_R1A.md`：确认归一化、只读边界、血缘约束、分页失败关闭和 external 契约成立，但发现 `greedyMatches` 在快速路径耗尽重复 fingerprint 右侧桶后会无界循环，且既有大历史测试没有经过该分支。
+- CodeGraph 对 DSH 权威源码确认 `SlotRegistry.inject()` 在调用方 Cordis fiber 上建立 controller，并把 `register()` 作为嵌套 effect 管理；插件卸载会自动取消等待和移除活动贡献，因此 R1A 关于 disposer 的证据缺口不构成泄漏。
+- 已为 `greedyMatches` 增加显式桶边界检查，并补 700×700 的重复 fingerprint 耗尽回归用例；待执行定向测试、完整门禁并创建独立 R2A 审核。
+- 新回归用例定向执行 4/4 通过；最终 `npm run verify` 通过：typecheck、build、7 个文件 23/23 测试和 bundle contract 全绿。最终 tarball SHA-256 更新为 `1DA73B9C75A37B061819D95DE507867382E1A0571D3F425683AC7F39D9230CA6`，browser bundle 更新为 `8371F230A2C695A03F34E40D24CAAFD473EB6884D2F65F7685DC170FCA5EA2BA`。
+- R1A 修复后重复执行官方 `plugin add` 只更新 lockfile integrity，安装目录仍是旧 bundle；没有误判为成功。对隔离 profile 中精确插件执行官方 `remove`→`add` 后，安装目录 bundle 与最终源码构件哈希一致。
+- 新 DSH PID 16220 在 3091 启动，boot asset revision 为 `6e23f62a6699`，served asset 48,184 字节且 SHA-256 与最终 bundle 一致。首次内存哈希包装器因本机缺少目标 .NET API 失效，兼容临时文件路径在终止错误模式下通过且已清理。
+- R1A 修复后完整 Edge 门禁再次通过，三类错误为 0；三张截图重新生成后哈希保持不变，并逐张人工检查无裁切、横向溢出或控件重叠。
+- R2A dry run 通过；正式只读审核在 140 秒内生成唯一 `FINAL_DECISION: GO`。Claude 复核确认 bucket 边界修复终止、700×700 回归用例真实进入旧缺陷分支且断言一致，并依据 DSH 权威 `SlotRegistry.inject()` 源码确认插件卸载自动清理。R2A 未重新审核 R1B。
+- Claude R1B 生成格式合法的 `HOLD`：README 提前把尚不存在的 Release URL 写成已验证源；浏览器回执缺少时间、Git、DSH/Edge、bundle 和截图哈希绑定；父分支断言只匹配了标题/候选文本；证据残留“待填写”；peerDependencies 漏掉实际注入的 `@deepseek-ai/dsh-client-ui-conversation`。
+- 已调整 README 为“Release 发布后可用，上传后必须下载核对 SHA-256”；增强浏览器回执绑定字段并从浏览器实例读取版本；父分支断言改为在“全部”视图的右侧真实单元格核对父响应；修正文档占位和 peer 声明。待重跑构建、安装、浏览器门禁并创建独立 R2B。
+- R1B 修复后 `node --check` 与完整 `npm run verify` 通过，仍为 7 文件 23/23；实测 Node `v25.0.0`、npm `11.6.2`、profile pnpm `11.7.0`，`package-lock.json` 已同步 conversation peer。
+- 增强后的真实 Edge 门禁通过：回执记录 Edge `151.0.4129.86`、served/local bundle 同哈希、父正文真实右侧单元格、no-fork 隐藏、三图哈希和三类零错误。最终 tarball 因新截图稳定为 `2E83CFD413E2F706DF589CA3888A73AE3EEDAF0509151D59E0E2408BF0C8C0BF`（239,114 字节）。
+- 最终 tarball 已再次由官方 CLI 精确 remove→add；安装目录 bundle、三张截图和 conversation peer 与最终构件一致。浏览器 DSH PID 19464 已停止，mock PID 9632 暂留至发布收口。
+- R2B dry run 通过；正式只读审核在 311 秒内生成格式合法的 `GO` 回执 `docs/CLAUDE_TO_CODEX_REVIEW_RECEIPT_R2B.md`，确认 R1B 的 Release 表述、机器回执绑定、父分支正文断言、占位清理和 conversation peer 五项阻塞均已关闭。
+- R2B 新发现的非阻塞 N1 为 `docs/release-evidence.md` 仍记录旧 DSH PID `16220`；已更正为最后一次浏览器门禁 PID `19464`，并明确该进程已停止。下一步执行最终独立复验后进入公开仓库、Release 与两个 awesome PR 发布。
+- 发布前最终独立复验通过：`npm run verify` 完成 typecheck、build、7 文件 23/23 测试与 bundle contract；`node --check scripts/verify-real-browser.mjs`、`git diff --check`、51 个文本文件严格 UTF-8 解码和疑似密钥模式扫描均通过。tarball、bundle、浏览器回执及三图 SHA-256 与发布证据一致。

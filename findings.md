@@ -31,3 +31,13 @@
 - 仍未产生真实运行截图，README 暂不声称浏览器行为已验收；截图必须来自本插件的真实 DSH 运行。
 - DSH 官方文档确认：checkout 安装为 `dsh plugin --profile <name> add ./plugin`；GitHub 安装为 `github:owner/repo`；Git dependency 的 `prepare` 在 pnpm 10+ 首次通常因 `allowBuilds` 失败，必须只复制 pnpm 报出的精确包键后重试。预构建 tarball 不需要构建授权。
 - 本机没有全局 `dsh` 命令，验收使用已构建的 `D:\knowledgeBase\deepseek-harness\apps\cli\lib\bin.js`，版本与源码一致为 `0.1.0-rc.5`。
+- 当前 DSH rc 的 Git dependency prepare 会由 pnpm 先运行内部 `npm install`；npm 自动安装 peer 时会追到尚未发布的 `@deepseek-ai/dsh-paths`，因此即使本插件自己的 devDependencies 可公开解析，Git source 路径仍无法在干净 profile 完成。预构建 tarball 不执行该源码 prepare 链，是官方文档列出的正常回退。
+
+## 2026-08-16 Stage 3 修复后证据
+
+- 公开真实历史确认 `user/message` 同时承载直接用户输入与 `agent-instructions`、`plugin`、`skill-catalog` 上下文；比较指标只统计 `source.kind = user`，否则会把一次真实分支显示成 5 条用户消息。
+- 真实 `tool/result` 正文位于 `data.message.content[].content[]` 的嵌套 `tool-result` block；错误标记可位于 block 的 `isError`。最终实现递归提取正文并保留 error 语义。
+- `agent/inbox/spliced`、`approval/policy`、`permission/preset`、`sandbox/mode`、`session/title-llm-request` 是当前 DSH 正常控制/元数据事件，不是 v1 比较单元；明确忽略它们，同时仍对真正未知且非 ignorable 的事件失败可见。
+- 修复后真实 Edge 回执显示：两侧均为 2 条直接用户消息，3 个血缘候选，4 条差异、6 条全部，嵌套工具错误正文可见，已知事件噪声消失，console/page/request 三类错误均为 0。
+- 原始桌面兄弟分支截图和父分支 selector 截图已人工检查：指标、工具调用、完整工具错误与最终回答可读，没有裁切、文字重叠或不一致布局。
+- 390×844 移动端原图已人工检查：单栏布局生效，长标题和 selector 稳定省略，指标、工具参数和双侧用户消息无横向溢出或控件重叠。

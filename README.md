@@ -4,7 +4,7 @@
 
 ## 为什么需要它
 
-同一轮对话 fork 后，常见问题不是“有哪些分支”，而是“两个分支具体从哪里开始产生了不同结果”。逐个打开会话并来回滚动很难比较长回答、工具轨迹和 token 开销。`dsh-fork-diff` 将这些信息放在一个可筛选的双栏视图中。
+同一轮对话 fork 后，常见问题不是“有哪些分支”，而是“两个分支的公开历史具体有哪些不同”。逐个打开会话并来回滚动很难比较长回答、工具轨迹和 token 开销。`dsh-fork-diff` 将这些信息放在一个可筛选的双栏视图中。
 
 ## 功能
 
@@ -21,10 +21,10 @@
 
 需要 DeepSeek Harness `0.1.0-rc.5` 或兼容版本，以及 Node.js `^22.19.0 || >=24.0.0`。
 
-从 GitHub 安装到 `web` profile：
+`v0.1.0` Release 发布后，可用下面的一行命令安装预构建 tarball 到 `web` profile：
 
 ```powershell
-dsh plugin --profile web add github:chouyong/dsh-fork-diff
+dsh plugin --profile web add https://github.com/chouyong/dsh-fork-diff/releases/download/v0.1.0/dsh-fork-diff-0.1.0.tgz
 ```
 
 启动或重启对应 profile：
@@ -33,11 +33,13 @@ dsh plugin --profile web add github:chouyong/dsh-fork-diff
 dsh --profile web
 ```
 
-若使用 Release 中的预构建 tarball：
+Release 发布前或需要复核构件时，可先使用本仓库本地已验证的 tarball：
 
 ```powershell
 dsh plugin --profile web add .\dsh-fork-diff-0.1.0.tgz
 ```
+
+DSH `0.1.0-rc.5` 当前从 Git source 安装时会在 prepare 阶段解析到尚未发布的 DSH peer 包，因此不把 Git source 路径描述成可用安装方式。远端 Release 只有在上传后下载并核对与本地验证构件相同的 SHA-256，才视为可用安装源。
 
 卸载：
 
@@ -48,15 +50,27 @@ dsh plugin --profile web remove dsh-fork-diff
 ## 使用
 
 1. 打开一个存在父、子或兄弟分支的 DSH 会话。
-2. 点击会话标题栏中的“分支差异”。
+2. 点击会话标题栏中的“比较分支”。
 3. 从“比较对象”选择相关分支。
-4. 在“只看变化”和“显示全部”之间切换，或从分支摘要中打开对应会话。
+4. 在“仅差异”和“全部”之间切换，或从分支摘要中打开对应会话。
 
 没有相关分支时，插件不会显示一个无效的比较入口。
 
 ## 截图
 
-真实桌面、移动端与分支选择截图将在发布前的 DSH 浏览器门禁通过后加入。本节不会使用 mockup、其他插件截图或重构素材。
+真实 DSH `0.1.0-rc.5`，Microsoft Edge，2026-08-16：
+
+### 兄弟分支差异
+
+![兄弟分支的用户消息、工具错误与最终回答差异](./assets/fork-diff-desktop.png)
+
+### 父分支选择
+
+![切换到父分支后的单侧差异](./assets/fork-diff-selector.png)
+
+### 移动端单栏
+
+![390 x 844 移动端单栏比较](./assets/fork-diff-mobile.png)
 
 ## 隐私与边界
 
