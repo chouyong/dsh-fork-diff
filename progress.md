@@ -76,3 +76,6 @@
 - CI run `31940782193` 完整通过但报告 Actions v4 的 Node 20 runtime 已弃用；workflow 升级到 `actions/checkout@v5` 与 `actions/setup-node@v5`，保持 job Node 24 和验证命令不变。复验 run `31940836408` 在 `db86fc6` 上成功且没有弃用 annotation。
 - `awesome-dsh-plugin` upstream 从 `9109c218` 前移 45 个提交到 `617810c7`；尚未推送的单提交准备分支无冲突 rebase 后，由官方生成器修正双语 README 排序并 amend 为 `9df7fc211eff5c767412adc6bca6311784f93005`。
 - 更新后的第一列表分支仍仅修改双语 README、插件 YAML 与截图 JSON 四个文件，共 13 行；官方生成检查显示 962 entries、structured YAML/JSON 核对 1 个入口与 3 张截图、awesome-lint 成功（24 条均为上游既有拼写 warning）、站点构建与 `git diff --check` 通过。年龄未到前仍不推送该分支。
+- GitHub API 复核公开仓库资格基线 `7175f307d3fe1c0b11feded6591aad4742c2ae56` 时已有 16 个真实提交；该基线的 CI run `31942167177` 成功。事实刷新提交 `ea09f9275033cf309aba9171cec5d2a0cd8f2ad2` 随后通过一次性 SSH URL 快进推送，其 CI run `31942380303` 也成功。
+- 当前权限无法写入插件仓库 `.git/FETCH_HEAD`，因此 HTTPS `origin/main` 的本地跟踪引用保持陈旧；没有改 ACL。远端状态由 GitHub API 核验，推送前也已证明远端 SHA 精确等于本地父提交。
+- 同轮第一列表门禁并行测量中，`npx` 首次受缓存竞态报 `ENOTCACHED`、站点构建首次受沙箱子进程 `EPERM` 阻断；拆为独立命令后，官方生成检查、`awesome-lint`（24 条上游既有 warning）和站点构建全部成功，不把首轮测具失败写成仓库失败。

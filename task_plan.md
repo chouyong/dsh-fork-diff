@@ -80,6 +80,8 @@
 | 推送新增 CI workflow 时 GitHub 拒绝当前 HTTPS OAuth 凭据，因其只有 `repo` 等 scope、没有 `workflow` scope | 1 | 远端 ref 未前移；不删除 CI、不重复 HTTPS 推送。只读核对本机 SSH 已认证为 `chouyong`，改用一次性 SSH URL 做非强制快进推送，不扩大 OAuth scope、不修改 origin |
 | `awesome-dsh-plugin` 准备分支 rebase 到前移 45 个提交的新 upstream 后，官方 `generate-readme --check` 报双语 README 与数据失同步 | 1 | 用官方生成器重建双语 README，并 amend 到尚未推送的唯一提交；重新生成检查、lint、站点构建和 diff 检查均通过 |
 | 额外截图结构检查器把 `data/screenshots.json` 顶层误设为数组并调用 `.filter()`，触发 `TypeError` | 1 | 先用 `JSON.parse` 枚举真实 schema，确认顶层是仓库 URL 到截图数组的对象；改按 `shots[entry.url]` 验证 3 张截图后通过 |
+| 一次并行重跑第一列表门禁时，`npx` 因缓存竞态报 `ENOTCACHED`，站点构建的 Git 子进程同时报沙箱 `spawn EPERM`，使该批次不能作为完成证据 | 1 | 将独立命令拆开重跑；官方生成检查、相同 `awesome-lint` 和站点构建均随后成功，保留首轮测具失败记录 |
+| 刷新 HTTPS `origin/main` 跟踪引用时 `.git/FETCH_HEAD` 写入被当前权限拒绝，远端跟踪引用仍停留在旧实现提交 | 1 | 不改 ACL、不把本地跟踪引用冒充远端状态；改用 GitHub API 核对远端 SHA 和提交数，推送前比较远端 SHA 与本地父提交，随后用一次性 SSH URL 非强制快进推送并再次通过 API/CI 验证 |
 
 ### Review state
 

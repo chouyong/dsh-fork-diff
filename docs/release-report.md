@@ -13,7 +13,7 @@
 - `v0.1.0` Release 已发布；远端资产重新下载后的大小与 SHA-256 和本地验证构件一致。
 - 公开资产已通过 GitHub CLI 下载并由官方 DSH CLI 安装到新的 `fork-diff-release-web`；bundle、三图、peer 声明和配置组合均通过。
 - `awesome-deepseek-harness` PR #270 已创建并核对为 `OPEN`、`MERGEABLE`，仅修改双语列表各一行。
-- 公开仓库当前 `main` 为 `7175f307d3fe1c0b11feded6591aad4742c2ae56`，有 16 个真实提交；GitHub Actions CI run `31942167177` 成功。
+- 公开仓库资格复核基线 `7175f307d3fe1c0b11feded6591aad4742c2ae56` 有 16 个真实提交；GitHub Actions CI run `31942167177` 成功。后续证据文档提交只会继续增加真实提交数。
 
 ## 待完成
 

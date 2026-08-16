@@ -58,7 +58,7 @@
 ## Stage 4: Publish
 
 - Claude R2A 与 R2B 均为 `GO`；`v0.1.0` 实现与 Release target 提交为 `9a16a072eba57b16f0a9040ad8047bacdcf389a1`。
-- 公开仓库：`https://github.com/chouyong/dsh-fork-diff`，visibility 为 `PUBLIC`，默认分支 `main`。补充真实发布证据、CI、贡献/安全/变更日志、架构、安装排障和 package contract 后，当前本地与 GitHub API 核验的远端 `main` 均为 `7175f307d3fe1c0b11feded6591aad4742c2ae56`，共 16 个非空提交。
+- 公开仓库：`https://github.com/chouyong/dsh-fork-diff`，visibility 为 `PUBLIC`，默认分支 `main`。资格复核基线 `7175f307d3fe1c0b11feded6591aad4742c2ae56` 已由 GitHub API 核验为远端 `main`，当时共有 16 个非空提交；后续证据文档提交只会继续增加真实提交数，不把该基线表述为永远不变的当前 HEAD。
 - Release：`https://github.com/chouyong/dsh-fork-diff/releases/tag/v0.1.0`，非草稿、非预发布，target 为 `9a16a072eba57b16f0a9040ad8047bacdcf389a1`。
 - GitHub Release asset 为 `dsh-fork-diff-0.1.0.tgz`，239,114 字节；GitHub digest 与重新下载后的 SHA-256 均为 `2E83CFD413E2F706DF589CA3888A73AE3EEDAF0509151D59E0E2408BF0C8C0BF`。
 - 新隔离 profile `fork-diff-release-web` 由 DSH 官方 `initProfile(..., PROFILE_TEMPLATES.web)` 初始化，初始 bundle 仅为 base + web-app。
