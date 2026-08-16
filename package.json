@@ -54,8 +54,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:bundle": "node scripts/check-bundle.mjs",
+    "verify:package": "node scripts/check-package-contract.mjs",
     "verify:browser": "node scripts/verify-real-browser.mjs",
-    "verify": "npm run typecheck && npm run build && npm test && npm run test:bundle"
+    "verify": "npm run typecheck && npm run build && npm test && npm run test:bundle && npm run verify:package"
   },
   "license": "MIT",
   "repository": {
